@@ -30,6 +30,12 @@ $.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
 $.init.load(path.resolve(__dirname, 'models'));
 
 
+// 初始化Express
+$.init.load(path.resolve(__dirname, 'init', 'express.js'));
+// 加载路由
+$.init.load(path.resolve(__dirname, 'routes'));
+
+
 // 初始化
 $.init((err) => {
   if (err) {
