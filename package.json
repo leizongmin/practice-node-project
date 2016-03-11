@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npm run clean && babel src -d target --watch",
     "compile": "npm run clean && babel src -d target",
-    "clean": "rm -Rf target"
+    "clean": "rm -Rf target",
+    "dev": "export NODE_ENV=dev && export DEBUG='my:*' && node target/server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/leizongmin/pratice-node-project#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "debug": "^2.2.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.6",
     "multiparty": "^4.1.2",
