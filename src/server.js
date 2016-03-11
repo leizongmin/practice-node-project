@@ -24,6 +24,12 @@ $.init.add((done) => {
 });
 
 
+// 初始化MongoDB
+$.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
+// 加载Models
+$.init.load(path.resolve(__dirname, 'models'));
+
+
 // 初始化
 $.init((err) => {
   if (err) {
@@ -32,4 +38,5 @@ $.init((err) => {
   } else {
     console.log('inited [env=%s]', $.env);
   }
+
 });

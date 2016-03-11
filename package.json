@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/leizongmin/pratice-node-project#readme",
   "dependencies": {
+    "mongoose": "^4.4.6",
     "project-core": "0.0.16"
   },
   "devDependencies": {
