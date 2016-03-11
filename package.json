@@ -4,7 +4,10 @@
   "description": "Node.js项目实战",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm run clean && babel src -d target --watch",
+    "compile": "npm run clean && babel src -d target",
+    "clean": "rm -Rf target"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/leizongmin/pratice-node-project/issues"
   },
-  "homepage": "https://github.com/leizongmin/pratice-node-project#readme"
+  "homepage": "https://github.com/leizongmin/pratice-node-project#readme",
+  "dependencies": {
+    "project-core": "0.0.16"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-preset-es2015-node4": "^2.0.3",
+    "babel-preset-stage-0": "^6.5.0"
+  }
 }
