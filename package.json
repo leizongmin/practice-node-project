@@ -27,7 +27,8 @@
     "mongoose": "^4.4.6",
     "multiparty": "^4.1.2",
     "project-core": "0.0.16",
-    "serve-static": "^1.10.2"
+    "serve-static": "^1.10.2",
+    "validator": "^5.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

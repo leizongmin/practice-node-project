@@ -39,6 +39,10 @@ $.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
 $.init.load(path.resolve(__dirname, 'models'));
 
 
+// 加载methods
+$.init.load(path.resolve(__dirname, 'methods'));
+
+
 // 初始化Express
 $.init.load(path.resolve(__dirname, 'init', 'express.js'));
 // 加载路由
@@ -54,4 +58,5 @@ $.init((err) => {
     console.log('inited [env=%s]', $.env);
   }
 
+  require('./test');
 });
