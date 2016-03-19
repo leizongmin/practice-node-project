@@ -22,10 +22,11 @@
   "homepage": "https://github.com/leizongmin/pratice-node-project#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "connect-multiparty": "^2.0.0",
     "debug": "^2.2.0",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "mongoose": "^4.4.6",
-    "multiparty": "^4.1.2",
     "project-core": "0.0.16",
     "serve-static": "^1.10.2",
     "validator": "^5.1.0"
