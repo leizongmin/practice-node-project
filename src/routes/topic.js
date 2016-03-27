@@ -86,16 +86,21 @@ module.exports = function (done) {
   $.router.post('/api/topic/item/:topic_id/comment/delete', $.checkLogin, async function (req, res, next) {
 
     req.body._id = req.params.topic_id;
-    req.body.authorId = req.session.user._id;
 
-    const comment = await $.method('topic.comment.get').call({
+    const query = {
       _id: req.params.topic_id,
       cid: req.body.cid,
-    });
+    };
+    const comment = await $.method('topic.comment.get').call(query);
 
-    //const comment = await $.method('topic.comment.delete').call(req.body);
+    if (!(comment && comment.comments && comment.comments[0] &&
+        comment.comments[0].authorId.toString() === req.session.user._id.toString())) {
+      return next(new Error('access denied'));
+    }
 
-    res.apiSuccess({comment});
+    await $.method('topic.comment.delete').call(query);
+
+    res.apiSuccess({comment: comment.comments[0]});
 
   });
 
