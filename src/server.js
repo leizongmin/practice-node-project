@@ -45,6 +45,8 @@ $.init.load(path.resolve(__dirname, 'methods'));
 
 // 初始化Express
 $.init.load(path.resolve(__dirname, 'init', 'express.js'));
+// 初始化中间件
+$.init.load(path.resolve(__dirname, 'middlewares'));
 // 加载路由
 $.init.load(path.resolve(__dirname, 'routes'));
 
