@@ -27,7 +27,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "mongoose": "^4.4.6",
-    "project-core": "0.0.16",
+    "project-core": "^0.1.0",
     "serve-static": "^1.10.2",
     "validator": "^5.1.0"
   },
