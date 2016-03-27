@@ -72,6 +72,34 @@ module.exports = function (done) {
   });
 
 
+  $.router.post('/api/topic/item/:topic_id/comment/add', $.checkLogin, async function (req, res, next) {
+
+    req.body._id = req.params.topic_id;
+    req.body.authorId = req.session.user._id;
+    const comment = await $.method('topic.comment.add').call(req.body);
+
+    res.apiSuccess({comment});
+
+  });
+
+
+  $.router.post('/api/topic/item/:topic_id/comment/delete', $.checkLogin, async function (req, res, next) {
+
+    req.body._id = req.params.topic_id;
+    req.body.authorId = req.session.user._id;
+
+    const comment = await $.method('topic.comment.get').call({
+      _id: req.params.topic_id,
+      cid: req.body.cid,
+    });
+
+    //const comment = await $.method('topic.comment.delete').call(req.body);
+
+    res.apiSuccess({comment});
+
+  });
+
+
   done();
 
 };

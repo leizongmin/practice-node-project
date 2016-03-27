@@ -92,6 +92,60 @@ module.exports = function (done) {
   });
 
 
+  $.method('topic.comment.add').check({
+    _id: {required: true, validate: (v) => validator.isMongoId(v)},
+    authorId: {required: true, validate: (v) => validator.isMongoId(v)},
+    content: {required: true},
+  });
+  $.method('topic.comment.add').register(async function (params) {
+
+    const comment = {
+      cid: new $.utils.ObjectId(),
+      authorId: params.authorId,
+      content: params.content,
+      createdAt: new Date(),
+    };
+
+    return $.model.Topic.update({_id: params._id}, {
+      $pushAll: {
+        comments: [comment]
+      },
+    });
+
+  });
+
+
+  $.method('topic.comment.get').check({
+    _id: {required: true, validate: (v) => validator.isMongoId(v)},
+    cid: {required: true, validate: (v) => validator.isMongoId(v)},
+  });
+  $.method('topic.comment.get').register(async function (params) {
+
+    return $.model.Topic.findOne({
+      _id: params._id,
+      'comments.cid': params.cid
+    }, {
+      comments: 1,
+    });
+
+  });
+
+
+  $.method('topic.comment.delete').check({
+    _id: {required: true, validate: (v) => validator.isMongoId(v)},
+    cid: {required: true, validate: (v) => validator.isMongoId(v)},
+  });
+  $.method('topic.comment.delete').register(async function (params) {
+
+    return $.model.Topic.update({_id: params._id}, {
+      $pull: {
+        'comments.cid': params.cid,
+      }
+    });
+
+  });
+
+
   done();
 
 };
