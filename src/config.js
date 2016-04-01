@@ -14,4 +14,10 @@ module.exports = function (set, get, has) {
   // session secret
   set('web.session.secret', 'test');
 
+  // session redis connection
+  set('web.session.redis', {
+    host: '127.0.0.1',
+    port: 6379,
+  });
+
 };
