@@ -25,3 +25,6 @@ $.method('user.update').call({
   nickname: '我是老雷',
 }, console.log);
 */
+
+
+console.log('哈哈哈哈😄');
