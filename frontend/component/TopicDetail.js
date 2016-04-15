@@ -33,7 +33,7 @@ export default class TopicDetail extends React.Component {
         <ul className="list-group">
           {topic.comments.map((item, i) => {
             return (
-              <li className="list-group-item">
+              <li className="list-group-item" key={i}>
                 {item.authorId}于{item.createAt}说：<br/>{item.content}
               </li>
             )
