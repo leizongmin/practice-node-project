@@ -39,7 +39,7 @@ export default class Header extends React.Component {
               <li className="active">
                 <Link to="/">首页</Link>
               </li>
-              <li><a href="#">帮助</a></li>
+              <li><a href="/new"><i className="glyphicon glyphicon-plus"></i> 发帖</a></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               {this.state.user ? (

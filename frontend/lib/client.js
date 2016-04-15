@@ -52,6 +52,9 @@ export function loginUser() {
 }
 
 export function logout() {
-  console.log('logout')
   return request('post', 'logout');
+}
+
+export function addTopic(title, tags, content) {
+  return request('post', 'topic/add', {title, tags, content}).then(ret => ret.topic);;
 }
