@@ -51,7 +51,8 @@
     "serve-static": "^1.10.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "validator": "^5.1.0"
+    "validator": "^5.1.0",
+    "xss": "^0.2.10"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
