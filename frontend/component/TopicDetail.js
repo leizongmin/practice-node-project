@@ -1,4 +1,5 @@
 import React from 'react';
+import 'highlight.js/styles/github-gist.css';
 import {getTopicDetail} from '../lib/client';
 import {renderMarkdown} from '../lib/utils';
 
