@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import 'highlight.js/styles/github-gist.css';
 import {getTopicDetail} from '../lib/client';
 import {renderMarkdown} from '../lib/utils';
@@ -29,6 +30,9 @@ export default class TopicDetail extends React.Component {
     return (
       <div>
         <h2>{topic.title}</h2>
+        <p>标签：{topic.tags.join(', ')}</p>
+        <Link to={`/topic/${topic._id}/edit`} className="btn btn-primary">编辑</Link>
+        <hr />
         <section dangerouslySetInnerHTML={{__html: topic.html}}></section>
         <ul className="list-group">
           {topic.comments.map((item, i) => {
