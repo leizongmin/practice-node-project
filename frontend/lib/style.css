@@ -1,0 +1,5 @@
+.CodeMirror {
+  border: 1px solid #ccc;
+  height: auto;
+  min-height: 100px;
+}
