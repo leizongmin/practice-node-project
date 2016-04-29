@@ -12,7 +12,7 @@ module.exports = function (done) {
 
 
   $.method('topic.add').check({
-    authorId: {required: true, validate: (v) => validator.isMongoId(String(v))},
+    author: {required: true, validate: (v) => validator.isMongoId(String(v))},
     title: {required: true},
     content: {required: true},
     tags: {validate: (v) => Array.isArray(v)},
@@ -32,13 +32,22 @@ module.exports = function (done) {
   });
   $.method('topic.get').register(async function (params) {
 
-    return $.model.Topic.findOne({_id: params._id});
+    return $.model.Topic.findOne({_id: params._id})
+    .populate({
+      path: 'author',
+      model: 'User',
+      select: 'nickname about',
+    }).populate({
+      path: 'comments.author',
+      model: 'User',
+      select: 'nickname about',
+    });
 
   });
 
 
   $.method('topic.list').check({
-    authorId: {validate: (v) => validator.isMongoId(String(v))},
+    author: {validate: (v) => validator.isMongoId(String(v))},
     tags: {validate: (v) => Array.isArray(v)},
     skip: {validate: (v) => v >= 0},
     limit: {validate: (v) => v > 0},
@@ -46,16 +55,20 @@ module.exports = function (done) {
   $.method('topic.list').register(async function (params) {
 
     const query = {};
-    if (params.authorId) query.authorId = params.authorId;
+    if (params.author) query.author = params.author;
     if (params.tags) query.tags = {$all: params.tags};
 
     const ret = $.model.Topic.find(query, {
-      authorId: 1,
+      author: 1,
       title: 1,
       tags: 1,
       createdAt: 1,
       updatedAt: 1,
       lastCommentedAt: 1,
+    }).populate({
+      path: 'author',
+      model: 'User',
+      select: 'nickname about',
     });
     if (params.skip) ret.skip(Number(params.skip));
     if (params.limit) ret.limit(Number(params.limit));
@@ -66,13 +79,13 @@ module.exports = function (done) {
 
 
   $.method('topic.count').check({
-    authorId: {validate: (v) => validator.isMongoId(String(v))},
+    author: {validate: (v) => validator.isMongoId(String(v))},
     tags: {validate: (v) => Array.isArray(v)},
   });
   $.method('topic.count').register(async function (params) {
 
     const query = {};
-    if (params.authorId) query.authorId = params.authorId;
+    if (params.author) query.author = params.author;
     if (params.tags) query.tags = {$all: params.tags};
 
     return $.model.Topic.count(query);
@@ -109,13 +122,13 @@ module.exports = function (done) {
 
   $.method('topic.comment.add').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
-    authorId: {required: true, validate: (v) => validator.isMongoId(String(v))},
+    author: {required: true, validate: (v) => validator.isMongoId(String(v))},
     content: {required: true},
   });
   $.method('topic.comment.add').register(async function (params) {
 
     const comment = {
-      authorId: params.authorId,
+      author: params.author,
       content: params.content,
       createdAt: new Date(),
     };
@@ -140,6 +153,10 @@ module.exports = function (done) {
       'comments._id': params.cid
     }, {
       'comments.$': 1,
+    }).populate({
+      path: 'author',
+      model: 'User',
+      select: 'nickname about',
     });
 
   });

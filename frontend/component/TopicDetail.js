@@ -51,6 +51,7 @@ export default class TopicDetail extends React.Component {
     return (
       <div>
         <h2>{topic.title}</h2>
+        <p>{topic.author.nickname} 发表于 {topic.createdAt}</p>
         <p>标签：{topic.tags.join(', ')}</p>
         <Link to={`/topic/${topic._id}/edit`} className="btn btn-xs btn-primary">
           <i className="glyphicon glyphicon-edit"></i> 编辑
@@ -75,12 +76,12 @@ export default class TopicDetail extends React.Component {
           {topic.comments.map((item, i) => {
             return (
               <li className="list-group-item" key={i}>
-                <span className="pull-right">
-                  <button className="btn btn-xs btn-danger" onClick={this.handleDeleteComment.bind(this, item._id)}>
-                    <i className="glyphicon glyphicon-trash"></i>
-                  </button>
-                </span>
-                {item.authorId}于{item.createAt}说：
+              <span className="pull-right">
+                <button className="btn btn-xs btn-danger" onClick={this.handleDeleteComment.bind(this, item._id)}>
+                  <i className="glyphicon glyphicon-trash"></i>
+                </button>
+              </span>
+                {item.author.nickname}于{item.createdAt}说：
                 <p dangerouslySetInnerHTML={{__html: item.html}}></p>
               </li>
             )
