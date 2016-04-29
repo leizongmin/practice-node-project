@@ -65,6 +65,21 @@ module.exports = function (done) {
   });
 
 
+  $.method('topic.count').check({
+    authorId: {validate: (v) => validator.isMongoId(String(v))},
+    tags: {validate: (v) => Array.isArray(v)},
+  });
+  $.method('topic.count').register(async function (params) {
+
+    const query = {};
+    if (params.authorId) query.authorId = params.authorId;
+    if (params.tags) query.tags = {$all: params.tags};
+
+    return $.model.Topic.count(query);
+
+  });
+
+
   $.method('topic.delete').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
   });
