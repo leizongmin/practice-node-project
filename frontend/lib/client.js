@@ -74,3 +74,7 @@ export function addComment(id, content) {
 export function deleteComment(id, cid) {
   return request('post', `topic/item/${id}/comment/delete`, {cid});
 }
+
+export function updateProfile(email, nickname, about) {
+  return request('post', 'user/profile', {email, nickname, about});
+}
