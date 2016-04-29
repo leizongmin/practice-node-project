@@ -36,7 +36,7 @@ export function request(method, path, data = {}) {
 }
 
 export function getTopicList(options) {
-  return request('get', 'topic/list', {});
+  return request('get', 'topic/list', options);
 }
 
 export function getTopicDetail(id) {
