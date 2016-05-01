@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import 'highlight.js/styles/github-gist.css';
-import {getTopicDetail, addComment, deleteComment} from '../lib/client';
-import {renderMarkdown} from '../lib/utils';
+import {getTopicDetail, addComment, deleteComment, deleteTopic} from '../lib/client';
+import {renderMarkdown, redirectURL} from '../lib/utils';
 import CommentEditor from './CommentEditor';
 
 export default class TopicDetail extends React.Component {
@@ -41,6 +41,17 @@ export default class TopicDetail extends React.Component {
       });
   }
 
+  handleDeleteTopic() {
+    if (!confirm('是否删除主题？')) return;
+    deleteTopic(this.state.topic._id)
+      .then(() => {
+        redirectURL('/');
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+
   render() {
     const topic = this.state.topic;
     if (!topic) {
@@ -56,6 +67,10 @@ export default class TopicDetail extends React.Component {
         <Link to={`/topic/${topic._id}/edit`} className="btn btn-xs btn-primary">
           <i className="glyphicon glyphicon-edit"></i> 编辑
         </Link>
+        &nbsp;&nbsp;
+        <button className="btn btn-xs btn-danger" onClick={this.handleDeleteTopic.bind(this)}>
+          <i className="glyphicon glyphicon-trash"></i> 删除
+        </button>
         <hr />
         <section dangerouslySetInnerHTML={{__html: topic.html}}></section>
         <CommentEditor
