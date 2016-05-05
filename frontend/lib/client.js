@@ -82,3 +82,15 @@ export function updateProfile(email, nickname, about) {
 export function deleteTopic(id) {
   return request('delete', `topic/item/${id}/`);
 }
+
+export function notificationCount(isRead) {
+  return request('get', 'notification/count', {isRead}).then(ret => ret.count);
+}
+
+export function notificationList() {
+  return request('get', 'notification/list');
+}
+
+export function notificationSetRead(id) {
+  return request('post', `notification/${id}/read`);
+}

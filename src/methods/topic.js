@@ -133,6 +133,19 @@ module.exports = function (done) {
       createdAt: new Date(),
     };
 
+    const topic = await $.method('topic.get').call({_id: params._id});
+    if (!topic) throw new Error('topic does not exists');
+
+    await $.method('notification.add').call({
+      from: params.author,
+      to: topic.author._id,
+      type: 'topic_comment',
+      data: {
+        _id: params._id,
+        title: topic.title,
+      },
+    });
+
     return $.model.Topic.update({_id: params._id}, {
       $push: {
         comments: comment
