@@ -65,6 +65,7 @@ module.exports = function (done) {
       createdAt: 1,
       updatedAt: 1,
       lastCommentedAt: 1,
+      pageView: 1,
     }).populate({
       path: 'author',
       model: 'User',
@@ -116,6 +117,16 @@ module.exports = function (done) {
     if (params.tags) update.tags = params.tags;
 
     return $.model.Topic.update({_id: params._id}, {$set: update});
+
+  });
+
+
+  $.method('topic.incrPageView').check({
+    _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
+  });
+  $.method('topic.incrPageView').register(async function (params) {
+
+    return $.model.Topic.update({_id: params._id}, {$inc: {pageView: 1}});
 
   });
 

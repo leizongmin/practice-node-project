@@ -73,6 +73,8 @@ module.exports = function (done) {
       };
     });
 
+    await $.method('topic.incrPageView').call({_id: req.params.topic_id});
+
     res.apiSuccess(result);
 
   });

@@ -48,7 +48,7 @@ export default class TopicList extends React.Component {
             return (
               <Link to={`/topic/${item._id}`} className="list-group-item" key={i}>
                 {item.title}
-                <span className="pull-right">{item.author.nickname} 发表于 {item.createdAt}</span>
+                <span className="pull-right">{item.author.nickname} 发表于 {item.createdAt}，阅读量：{item.pageView || 0}</span>
               </Link>
             )
           })}
