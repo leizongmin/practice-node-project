@@ -80,6 +80,15 @@ module.exports = function (done) {
 
     const user = await $.method('user.add').call(req.body);
 
+    $.method('mail.sendTemplate').call({
+      to: user.email,
+      subject: '欢迎',
+      template: 'welcome',
+      data: user,
+    }, err => {
+      if (err) console.error(err);
+    });
+
     res.apiSuccess({user: user});
 
   });

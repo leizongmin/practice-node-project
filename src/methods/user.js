@@ -42,7 +42,7 @@ module.exports = function (done) {
 
 
   $.method('user.get').check({
-    _id: {validate: (v) => validator.isMongoId(v)},
+    _id: {validate: (v) => validator.isMongoId(String(v))},
     name: {validate: (v) => validator.isLength(v, {min: 4, max: 20}) && /^[a-zA-Z]/.test(v)},
     email: {validate: (v) => validator.isEmail(v)},
   });
@@ -65,7 +65,7 @@ module.exports = function (done) {
 
 
   $.method('user.update').check({
-    _id: {validate: (v) => validator.isMongoId(v)},
+    _id: {validate: (v) => validator.isMongoId(String(v))},
     name: {validate: (v) => validator.isLength(v, {min: 4, max: 20}) && /^[a-zA-Z]/.test(v)},
     email: {validate: (v) => validator.isEmail(v)},
   });
@@ -89,7 +89,7 @@ module.exports = function (done) {
 
 
   $.method('user.incrScore').check({
-    _id: {validate: (v) => validator.isMongoId(v), required: true},
+    _id: {validate: (v) => validator.isMongoId(String(v)), required: true},
     score: {validate: (v) => !isNaN(v), required: true},
   });
   $.method('user.incrScore').register(async function (params) {
