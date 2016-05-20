@@ -48,6 +48,8 @@
     "marked": "^0.3.5",
     "mongoose": "^4.4.6",
     "nodemailer": "^2.4.1",
+    "passport": "^0.3.2",
+    "passport-github": "^1.1.0",
     "project-core": "^0.1.0",
     "rd": "0.0.2",
     "react": "^0.14.8",

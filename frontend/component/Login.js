@@ -31,6 +31,7 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const isBind = this.props.location.query.bind === '1' ? true : false;
     return (
       <div style={{width: 400, margin: 'auto'}}>
         <div className="panel panel-primary">
@@ -45,7 +46,9 @@ export default class Login extends React.Component {
                 <label htmlFor="password">密码</label>
                 <input type="password" className="form-control" id="password" onChange={this.handleChange.bind(this, 'password')} placeholder="" />
               </div>
-              <button type="button" className="btn btn-primary" onClick={this.handleLogin.bind(this)}>登录</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleLogin.bind(this)}>{isBind ? '绑定' : '登录'}</button>
+              &nbsp;
+              {isBind ? null : <a href="/auth/github" className="btn btn-info">使用GitHub帐号登录</a>}
               <span className="pull-right"><Link to="/reset_password">重置密码</Link></span>
               </form>
             </div>
