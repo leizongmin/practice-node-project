@@ -31,6 +31,7 @@ module.exports = function (done) {
     debug('get: code=%s, json=%s', code, json);
     if (!json) return false;
     const data = JSON.parse(json);
+    await connection.del(key);
     return data;
   };
 
