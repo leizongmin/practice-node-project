@@ -7,7 +7,33 @@
  */
 
 import request from 'supertest';
-import './server';
+import './base';
+
+
+// 清空Redis数据
+$.init.add(async function () {
+  const keys = await $.limiter.connection.keys($.config.get('limiter.redis.prefix') + '*');
+  if (keys.length > 0) {
+    await $.limiter.connection.del(keys);
+  }
+});
+$.init.add(async function () {
+  const keys = await $.captcha.connection.keys($.config.get('captcha.redis.prefix') + '*');
+  if (keys.length > 0) {
+    await $.captcha.connection.del(keys);
+  }
+});
+
+
+// 初始化
+$.init((err) => {
+  if (err) {
+    console.error(err);
+    process.exit(-1);
+  } else {
+    console.log('inited [env=%s]', $.env);
+  }
+});
 
 
 function makeRequest(method, path, params) {
@@ -27,7 +53,7 @@ function makeRequest(method, path, params) {
         if (res.body.success) {
           resolve(res.body.result);
         } else {
-          reject(res.body);
+          reject(new Error(res.body.error));
         }
       });
     });
