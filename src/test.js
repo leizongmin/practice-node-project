@@ -6,7 +6,7 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
-import request from 'supertest';
+import supertest from 'supertest';
 import './base';
 
 
@@ -57,11 +57,12 @@ $.init((err) => {
 });
 
 
-function makeRequest(method, path, params) {
+function makeRequest(agent, method, path, params) {
   return new Promise((resolve, reject) => {
     $.ready(() => {
       params = params || {};
-      let req = request($.express)[method](path);
+      agent = agent || supertest($.express);
+      let req = agent[method](path);
       if (method === 'get' || method === 'head') {
         req = req.query(params);
       } else {
@@ -80,15 +81,22 @@ function makeRequest(method, path, params) {
   });
 }
 
-function generateRequestMethod(method) {
+function generateRequestMethod(agent, method) {
   return function (path, params) {
-    return makeRequest(method, path, params);
+    return makeRequest(agent, method, path, params);
   }
 }
 
-export default {
-  get: generateRequestMethod('get'),
-  post: generateRequestMethod('post'),
-  put: generateRequestMethod('put'),
-  delete: generateRequestMethod('delete'),
-};
+function generateRequestSuite(agent) {
+  return {
+    get: generateRequestMethod(agent, 'get'),
+    post: generateRequestMethod(agent, 'post'),
+    put: generateRequestMethod(agent, 'put'),
+    delete: generateRequestMethod(agent, 'delete'),
+  };
+}
+
+export var request = generateRequestSuite(false);
+export function session() {
+  return generateRequestSuite(supertest.agent($.express));
+}

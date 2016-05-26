@@ -7,7 +7,7 @@
  */
 
 import {expect} from 'chai';
-import request from '../test';
+import {request} from '../test';
 
 describe('user', function () {
 
