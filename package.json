@@ -14,7 +14,7 @@
     "fe:watch": "cd frontend && webpack --progress --colors --watch",
     "fe:dev": "cd frontend && webpack-dev-server",
     "install": "npm run fe:compile && npm run compile",
-    "start": "export NODE_ENV=production && node target/server.js"
+    "start": "export NODE_ENV=production && pm2 start target/server.js --name my-bbs"
   },
   "repository": {
     "type": "git",
