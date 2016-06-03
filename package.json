@@ -10,9 +10,11 @@
     "compile": "npm run clean && babel src -d target",
     "clean": "rm -Rf target",
     "dev": "export NODE_ENV=dev && export DEBUG='my:*,project-core:*' && cd target && nodemon server.js",
-    "fe:compile": "cd frontend && webpack --progress --colors",
+    "fe:compile": "cd frontend && webpack --progress --colors --optimize-minimize --config webpack.config.release.js",
     "fe:watch": "cd frontend && webpack --progress --colors --watch",
-    "fe:dev": "cd frontend && webpack-dev-server"
+    "fe:dev": "cd frontend && webpack-dev-server",
+    "install": "npm run fe:compile && npm run compile",
+    "start": "export NODE_ENV=production && node target/server.js"
   },
   "repository": {
     "type": "git",

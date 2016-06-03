@@ -57,6 +57,7 @@ module.exports = function (done) {
 
   app.use(router);
   app.use('/static', serveStatic(path.resolve(__dirname, '../../static')));
+  app.use('/build', serveStatic(path.resolve(__dirname, '../../frontend/build')));
 
   app.use('/api', function (err, req, res, next) {
     debug('API error: %s', err && err.stack || err);
